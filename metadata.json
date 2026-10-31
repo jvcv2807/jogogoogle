@@ -1,0 +1,6 @@
+{
+  "name": "Dungeon Breakers: A Torre dos 100 Abismos",
+  "description": "RPG de fantasia sombria, evolução, combate automático e destruição de monstros estilo TapTap Breaking com 100 andares, 1.000 chefões e 20 heróis colecionáveis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
