@@ -67,7 +67,7 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = memo(({
         style={{ width: size, height: size }}
       >
         <img
-          src="/assets/heroes/aurora_portrait.svg"
+          src={`${import.meta.env.BASE_URL}assets/heroes/aurora_portrait.svg`}
           alt="Aurora portrait"
           width={size}
           height={size}
@@ -84,7 +84,7 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = memo(({
         style={{ width: size, height: size }}
       >
         <img
-          src="/assets/heroes/goblin_portrait.svg"
+          src={`${import.meta.env.BASE_URL}assets/heroes/goblin_portrait.svg`}
           alt="Goblin portrait"
           width={size}
           height={size}
