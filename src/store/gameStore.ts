@@ -133,7 +133,19 @@ function loadInitialState() {
         activeTeamIds: parsed.activeTeamIds || ['hero_arthur', 'hero_lyra', 'hero_kael', 'hero_serena'],
         inventory: parsed.inventory || [generateEquipment(1, 'Comum'), generateEquipment(1, 'Incomum')],
         rebirthTree: parsed.rebirthTree || INITIAL_REBIRTH_TREE,
-        bestiary: parsed.bestiary || []
+        bestiary: parsed.bestiary || [],
+        heroes: INITIAL_HEROES.map(defaultHero => {
+          const saved = Array.isArray(parsed.heroes) ? parsed.heroes.find((h: Hero) => h.id === defaultHero.id) : null;
+          if (!saved) return defaultHero;
+          return {
+            ...defaultHero,
+            level: Math.max(1, Math.min(200, Number(saved.level) || 1)),
+            stars: Math.max(1, Math.min(6, Number(saved.stars) || 1)),
+            awakening: Math.max(0, Math.min(5, Number(saved.awakening) || 0)),
+            unlocked: Boolean(saved.unlocked),
+            shards: Math.max(0, Number(saved.shards) || 0)
+          };
+        })
       };
     }
   } catch {
@@ -160,7 +172,8 @@ function loadInitialState() {
     activeTeamIds: ['hero_arthur', 'hero_lyra', 'hero_kael', 'hero_serena'],
     inventory: [generateEquipment(1, 'Comum'), generateEquipment(1, 'Incomum')],
     rebirthTree: INITIAL_REBIRTH_TREE,
-    bestiary: []
+    bestiary: [],
+    heroes: INITIAL_HEROES
   };
 }
 
@@ -177,7 +190,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   highContrast: init.highContrast,
 
   playerStats: init.playerStats,
-  heroes: INITIAL_HEROES,
+  heroes: init.heroes,
   activeTeamIds: init.activeTeamIds,
   inventory: init.inventory,
   rebirthTree: init.rebirthTree,
@@ -508,6 +521,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
+    set({
+      combo: nextCombo,
+      comboTimer: nextComboTimer,
+      screenShake: nextShake,
+      floatingTexts: nextFt,
+      hitParticles: nextParticles,
+      heroes: nextHeroes,
+      enemy: nextEnemy
+    });
+
     // 7. Auto cast skills if enabled
     if (s.autoSkills) {
       activeHeroes.forEach(hero => {
@@ -522,15 +545,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       });
     }
 
-    set({
-      combo: nextCombo,
-      comboTimer: nextComboTimer,
-      screenShake: nextShake,
-      floatingTexts: nextFt,
-      hitParticles: nextParticles,
-      heroes: nextHeroes,
-      enemy: nextEnemy
-    });
+
   },
 
   defeatEnemy: (defeated) => {
@@ -850,7 +865,8 @@ useGameStore.subscribe((state) => {
       activeTeamIds: state.activeTeamIds,
       inventory: state.inventory,
       rebirthTree: state.rebirthTree,
-      bestiary: state.bestiary
+      bestiary: state.bestiary,
+      heroes: state.heroes.map(({ id, level, stars, awakening, unlocked, shards }) => ({ id, level, stars, awakening, unlocked, shards }))
     };
     localStorage.setItem(SAVE_KEY, JSON.stringify(toSave));
   } catch {
