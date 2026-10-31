@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Hero, Enemy, FloorTheme, FloatingText, HitParticle } from '../types/game';
 import { formatNumber, getElementColor, getElementalMultiplier } from '../utils/numberFormat';
 import { sound } from '../utils/audio';
@@ -313,11 +314,17 @@ export const BattleArena: React.FC<BattleArenaProps> = ({
         />
       ))}
 
-      {/* Top Combat HUD: Boss Health & Break Bar */}
+      {/* Top Combat HUD: Boss Health & Break Bar with Framer Motion */}
       {enemy && (
         <div className="pointer-events-none absolute top-3 left-4 right-4 md:left-24 md:right-24 flex flex-col items-center">
-          {/* Boss Header */}
-          <div className="flex items-center gap-2 mb-1.5 px-3 py-1 bg-slate-950/80 backdrop-blur border border-slate-700/80 rounded-md">
+          {/* Boss Header with Entrance Animation */}
+          <motion.div
+            key={enemy.id}
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="flex items-center gap-2 mb-1.5 px-3 py-1 bg-slate-950/85 backdrop-blur-md border border-slate-700/80 rounded-md shadow-md"
+          >
             <span
               className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
               style={{
@@ -335,39 +342,63 @@ export const BattleArena: React.FC<BattleArenaProps> = ({
                 · {enemy.title}
               </span>
             )}
-          </div>
+          </motion.div>
 
-          {/* Main Boss HP Bar */}
+          {/* Main Boss HP Bar with Smooth Spring and Trailing Damage Ghost Bar */}
           <div className="w-full max-w-xl h-5 bg-slate-900 border border-slate-700 rounded-md overflow-hidden relative shadow-lg">
-            <div
-              className={`h-full transition-all duration-100 ease-out ${
+            {/* 1. Trailing Damage Ghost Bar (Classic RPG visual indicator of recently lost health) */}
+            <motion.div
+              initial={false}
+              animate={{ width: `${hpPercent * 100}%` }}
+              transition={{ duration: 0.65, delay: 0.15, ease: 'easeOut' }}
+              className="absolute inset-y-0 left-0 bg-amber-400/80"
+            />
+
+            {/* 2. Primary Fluid Health Bar */}
+            <motion.div
+              initial={false}
+              animate={{ width: `${hpPercent * 100}%` }}
+              transition={{
+                type: 'spring',
+                stiffness: 190,
+                damping: 24,
+                mass: 0.8
+              }}
+              className={`h-full relative z-10 ${
                 enemy.isSupremeBoss
                   ? 'bg-gradient-to-r from-red-600 via-rose-500 to-amber-500'
                   : 'bg-gradient-to-r from-amber-600 to-amber-400'
               }`}
-              style={{ width: `${hpPercent * 100}%` }}
             />
-            <div className="absolute inset-0 flex items-center justify-between px-2 text-[11px] font-bold text-white drop-shadow">
-              <span>HP</span>
-              <span className="tabular-nums">
+
+            {/* Text Overlay */}
+            <div className="absolute inset-0 z-20 flex items-center justify-between px-2 text-[11px] font-bold text-white drop-shadow">
+              <span className="font-mono">HP</span>
+              <span className="tabular-nums font-mono">
                 {formatNumber(enemy.currentHp)} / {formatNumber(enemy.maxHp)} ({Math.round(hpPercent * 100)}%)
               </span>
             </div>
           </div>
 
-          {/* Defense Break Resistance Gauge (TapTap Breaking core mechanic!) */}
-          <div className="w-full max-w-xl mt-1 flex items-center gap-2">
-            <div className="flex-1 h-2.5 bg-slate-950 border border-cyan-800 rounded overflow-hidden relative">
-              <div
-                className={`h-full transition-all duration-75 ${
+          {/* Defense Break Resistance Gauge with Smooth Motion */}
+          <div className="w-full max-w-xl mt-1.5 flex items-center gap-2">
+            <div className="flex-1 h-2.5 bg-slate-950 border border-cyan-800 rounded overflow-hidden relative shadow-inner">
+              <motion.div
+                initial={false}
+                animate={{ width: `${breakPercent * 100}%` }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 220,
+                  damping: 22
+                }}
+                className={`h-full ${
                   enemy.isStunned
-                    ? 'bg-cyan-400 animate-pulse'
+                    ? 'bg-cyan-300 animate-pulse shadow-[0_0_10px_#38bdf8]'
                     : 'bg-gradient-to-r from-cyan-600 to-blue-400'
                 }`}
-                style={{ width: `${breakPercent * 100}%` }}
               />
             </div>
-            <span className={`text-[10px] font-bold uppercase tracking-wider ${enemy.isStunned ? 'text-cyan-300 font-black animate-bounce' : 'text-cyan-500'}`}>
+            <span className={`text-[10px] font-bold uppercase tracking-wider transition-all ${enemy.isStunned ? 'text-cyan-300 font-black animate-bounce' : 'text-cyan-500'}`}>
               {enemy.isStunned ? '⚡ QUEBRADO! (+100% DANO)' : '🛡️ DEFESA'}
             </span>
           </div>

@@ -7,6 +7,7 @@ import React from 'react';
 import { Hero } from '../types/game';
 import { getElementColor } from '../utils/numberFormat';
 import { Zap, Flame, Shield, Sparkles } from 'lucide-react';
+import { HeroPortrait } from './HeroPortrait';
 
 interface CombatControlsProps {
   heroes: Hero[];
@@ -30,7 +31,7 @@ export const CombatControls: React.FC<CombatControlsProps> = ({
           return (
             <div
               key={hero.id}
-              className="bg-slate-900/90 rounded-lg border border-slate-800 p-2.5 flex flex-col justify-between relative overflow-hidden shadow-md"
+              className="bg-slate-900/90 rounded-lg border border-slate-800 p-2 sm:p-2.5 flex flex-col justify-between relative overflow-hidden shadow-md"
             >
               {/* Element colored accent bar */}
               <div
@@ -41,9 +42,7 @@ export const CombatControls: React.FC<CombatControlsProps> = ({
               {/* Hero info header */}
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5 min-w-0">
-                  <span className="text-xl p-1 bg-slate-950 rounded border border-slate-800">
-                    {hero.avatarSprite}
-                  </span>
+                  <HeroPortrait heroId={hero.id} element={hero.element} size={36} />
                   <div className="truncate">
                     <div className="text-xs font-bold text-white truncate flex items-center gap-1">
                       {hero.name}

@@ -8,6 +8,8 @@ import { Hero } from '../types/game';
 import { calculateHeroStats, getHeroCostForLevelUp } from '../data/heroes';
 import { formatNumber, getElementColor } from '../utils/numberFormat';
 import { X, Star, Zap, Shield, Heart, Sword, Sparkles, Check } from 'lucide-react';
+import { HeroPortrait } from './HeroPortrait';
+import { motion } from 'framer-motion';
 
 interface HeroesModalProps {
   heroes: Hero[];
@@ -41,8 +43,20 @@ export const HeroesModal: React.FC<HeroesModalProps> = ({
   const isInActiveTeam = activeTeamIds.includes(selectedHero.id);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-150">
-      <div className="w-full max-w-5xl bg-slate-950 border border-slate-800 rounded-xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-slate-100">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 select-none"
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.93, y: 16 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 330 }}
+        className="w-full max-w-5xl bg-slate-950 border border-slate-800 rounded-xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-slate-100"
+      >
         
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-900/60">
@@ -86,9 +100,7 @@ export const HeroesModal: React.FC<HeroesModalProps> = ({
                         : 'bg-slate-900/80 border-slate-800 hover:bg-slate-800/60'
                     } ${!hero.unlocked ? 'opacity-50 grayscale' : ''}`}
                   >
-                    <span className="text-2xl p-1 bg-slate-950 rounded border border-slate-800">
-                      {hero.avatarSprite}
-                    </span>
+                    <HeroPortrait heroId={hero.id} element={hero.element} size={42} />
                     <div className="min-w-0 flex-1">
                       <div className="text-xs font-bold text-white truncate flex items-center justify-between">
                         <span>{hero.name}</span>
@@ -116,9 +128,7 @@ export const HeroesModal: React.FC<HeroesModalProps> = ({
             {/* Hero Profile Banner */}
             <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-900/70 border border-slate-800 rounded-lg">
               <div className="flex items-center gap-3">
-                <span className="text-4xl p-2 bg-slate-950 rounded-xl border border-slate-700">
-                  {selectedHero.avatarSprite}
-                </span>
+                <HeroPortrait heroId={selectedHero.id} element={selectedHero.element} size={64} />
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="text-xl font-black text-white font-['Cinzel']">
@@ -290,7 +300,7 @@ export const HeroesModal: React.FC<HeroesModalProps> = ({
           </div>
         </div>
 
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

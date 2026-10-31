@@ -8,6 +8,7 @@ import { Hero, Equipment, ItemRarity } from '../types/game';
 import { generateEquipment, RARITY_CONFIG } from '../data/equipment';
 import { sound } from '../utils/audio';
 import { X, Sparkles, Gem, RefreshCw } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export interface SummonResult {
   type: 'hero' | 'shards' | 'equipment';
@@ -97,8 +98,20 @@ export const SummonModal: React.FC<SummonModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-150">
-      <div className="w-full max-w-4xl bg-slate-950 border border-amber-500/40 rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-slate-100">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 select-none"
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.93, y: 16 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 330 }}
+        className="w-full max-w-4xl bg-slate-950 border border-amber-500/40 rounded-2xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-slate-100"
+      >
         
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-slate-900/60">
@@ -224,7 +237,7 @@ export const SummonModal: React.FC<SummonModalProps> = ({
           )}
         </div>
 
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

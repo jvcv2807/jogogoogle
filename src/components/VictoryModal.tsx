@@ -9,6 +9,7 @@ import { Enemy, Equipment } from '../types/game';
 import { formatNumber } from '../utils/numberFormat';
 import { RARITY_CONFIG, SLOT_ICONS } from '../data/equipment';
 import { Trophy, ArrowRight, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface VictoryModalProps {
   defeatedEnemy: Enemy;
@@ -41,8 +42,20 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 animate-in fade-in zoom-in-95 duration-150 select-none">
-      <div className="w-full max-w-md bg-slate-950 border border-amber-500/50 rounded-2xl shadow-2xl p-5 text-center text-slate-100 space-y-4">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 select-none"
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.92, y: 10 }}
+        transition={{ type: 'spring', damping: 24, stiffness: 320 }}
+        className="w-full max-w-md bg-slate-950 border border-amber-500/50 rounded-2xl shadow-2xl p-5 text-center text-slate-100 space-y-4"
+      >
         
         {/* Victory Trophy Badge */}
         <div className="w-16 h-16 mx-auto bg-gradient-to-tr from-amber-600 to-yellow-400 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/20 animate-bounce">
@@ -97,7 +110,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           <ArrowRight className="w-4 h-4" />
         </button>
 
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

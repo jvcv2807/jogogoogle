@@ -8,6 +8,7 @@ import { Equipment, EquipmentSlot, Hero } from '../types/game';
 import { RARITY_CONFIG, SLOT_ICONS, calculateUpgradeCost } from '../data/equipment';
 import { formatNumber } from '../utils/numberFormat';
 import { X, ArrowUpCircle, Shield, Trash2, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface InventoryModalProps {
   inventory: Equipment[];
@@ -50,8 +51,20 @@ export const InventoryModal: React.FC<InventoryModalProps> = ({
     : null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-150">
-      <div className="w-full max-w-5xl bg-slate-950 border border-slate-800 rounded-xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-slate-100">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 select-none"
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.93, y: 16 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 330 }}
+        className="w-full max-w-5xl bg-slate-950 border border-slate-800 rounded-xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-slate-100"
+      >
         
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-900/60">
@@ -291,7 +304,7 @@ export const InventoryModal: React.FC<InventoryModalProps> = ({
           </div>
         </div>
 
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

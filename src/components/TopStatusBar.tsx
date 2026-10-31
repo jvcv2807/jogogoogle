@@ -6,7 +6,7 @@
 import React from 'react';
 import { FloorTheme, PlayerStats } from '../types/game';
 import { formatNumber } from '../utils/numberFormat';
-import { Volume2, VolumeX, Shield, Play, Pause, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
+import { Volume2, VolumeX, Shield, Play, Pause, ChevronLeft, ChevronRight, BookOpen, Settings } from 'lucide-react';
 
 interface TopStatusBarProps {
   floorTheme: FloorTheme;
@@ -15,6 +15,7 @@ interface TopStatusBarProps {
   currentLevel: number;
   stage: 'horde' | 'elite' | 'boss';
   playerStats: PlayerStats;
+  difficulty?: string;
   autoProgress: boolean;
   onToggleAutoProgress: () => void;
   autoSkills: boolean;
@@ -23,6 +24,7 @@ interface TopStatusBarProps {
   onToggleMute: () => void;
   onFloorChange: (floor: number) => void;
   onOpenStory: () => void;
+  onOpenSettings: () => void;
 }
 
 export const TopStatusBar: React.FC<TopStatusBarProps> = ({
@@ -39,7 +41,9 @@ export const TopStatusBar: React.FC<TopStatusBarProps> = ({
   isMuted,
   onToggleMute,
   onFloorChange,
-  onOpenStory
+  onOpenStory,
+  onOpenSettings,
+  difficulty
 }) => {
   return (
     <header className="w-full bg-slate-950/95 border-b border-slate-800 text-slate-200 select-none z-10 px-3 py-2">
@@ -110,6 +114,15 @@ export const TopStatusBar: React.FC<TopStatusBarProps> = ({
             }`}
           >
             AUTO AVANÇO: {autoProgress ? 'ON' : 'OFF'}
+          </button>
+
+          {/* Settings modal trigger */}
+          <button
+            onClick={onOpenSettings}
+            title="Configurações e Dificuldade"
+            className="p-1.5 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition"
+          >
+            <Settings className="w-4 h-4 text-amber-400" />
           </button>
 
           {/* Mute toggle */}
