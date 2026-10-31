@@ -334,6 +334,11 @@ export const BattleArena: React.FC<BattleArenaProps> = ({
             >
               {enemy.element}
             </span>
+            {enemy.name.toLowerCase().includes('goblin') ? (
+              <img src="/assets/heroes/goblin_portrait.svg" alt="Goblin" className="w-5 h-5 rounded-full border border-emerald-500/50" />
+            ) : (
+              <span className="text-base">{enemy.isSupremeBoss ? '👑' : (enemy.isBoss ? '👹' : '👾')}</span>
+            )}
             <span className="text-sm md:text-base font-black text-white font-['Cinzel'] tracking-wide">
               {enemy.name}
             </span>

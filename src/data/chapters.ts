@@ -293,10 +293,11 @@ export function generateEnemy(floor: number, levelInFloor: number, stage: 'horde
   if (stage === 'horde') {
     const hordeHp = Math.max(10, Math.floor(baseHp * 0.18));
     const hordeAtk = Math.max(2, Math.floor(baseAtk * 0.35));
+    const isGoblin = floor === 1;
     return {
       id: `horde_${floor}_${levelInFloor}_${Date.now()}`,
-      name: `Lacaio de ${floorTheme.name}`,
-      title: 'Monstro Comum',
+      name: isGoblin ? 'Goblin Selvagem' : `Lacaio de ${floorTheme.name}`,
+      title: isGoblin ? 'Monstro da Floresta' : 'Monstro Comum',
       isBoss: false,
       isSupremeBoss: false,
       stageType: 'horde',

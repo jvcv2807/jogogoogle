@@ -1224,6 +1224,67 @@ export const INITIAL_HEROES: Hero[] = [
       currentCharge: 0,
       icon: '👑'
     }
+  },
+
+  // 21. Aurora - A Maga da Luz
+  {
+    id: 'hero_aurora',
+    name: 'Aurora',
+    title: 'A Maga da Luz Celeste',
+    heroClass: 'Mago',
+    rarity: 'Lendário',
+    element: 'Luz',
+    specialty: 'Dano Radiante e Iluminação',
+    level: 1,
+    stars: 3,
+    awakening: 0,
+    baseHp: 820,
+    baseAtk: 180,
+    baseDef: 34,
+    baseSpd: 1.35,
+    baseCrit: 20,
+    currentHp: 820,
+    unlocked: true,
+    shards: 20,
+    color: '#38bdf8',
+    accentColor: '#fde047',
+    avatarSprite: '🪄',
+    passive: {
+      name: 'Resplendor Celeste',
+      description: 'Aumenta todo o dano sagrado e crítico da equipe em 25%.',
+      bonusType: 'damage',
+      bonusValue: 25
+    },
+    skills: [
+      {
+        id: 'aurora_s1',
+        name: 'Feixe Prismático',
+        description: 'Dispara um raio de pura luz celestial causando 220% de dano e quebrando defesa.',
+        multiplier: 2.2,
+        cooldown: 3.8,
+        currentCooldown: 0,
+        icon: '✨',
+        type: 'damage'
+      },
+      {
+        id: 'aurora_s2',
+        name: 'Prisma Protetor',
+        description: 'Envolve a equipe com um manto de fótons que reduz dano recebido em 25% por 6s.',
+        multiplier: 1.0,
+        cooldown: 10,
+        currentCooldown: 0,
+        icon: '🛡️',
+        type: 'buff'
+      }
+    ],
+    ultimate: {
+      name: 'AURORA BOREAL DEVASTADORA',
+      description: 'Rasga o céu da masmorra com cortinas estelares radiantes, causando 850% de dano em área e atordoando inimigos!',
+      multiplier: 8.5,
+      chargeTime: 18,
+      currentCharge: 0,
+      icon: '🌌'
+    }
   }
 ];
 
