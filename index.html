@@ -2,14 +2,17 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="color-scheme" content="light dark">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Google Dino Runner — Jogo do Dinossauro Recriado</title>
   <meta name="description" content="Recriação fiel e completa do clássico jogo do dinossauro do Google Chrome (T-Rex Runner) em HTML5 Canvas e JavaScript puro. Jogue online!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23535353'/><text x='50%' y='68%' font-size='55' text-anchor='middle' fill='%23ffffff'>🦖</text></svg>">
 </head>
 <body>
@@ -26,7 +29,7 @@
       </div>
     </header>
 
-    <div class="canvas-wrapper">
+    <div class="canvas-wrapper" style="cursor: pointer;" title="Clique aqui para pular ou iniciar">
       <canvas id="gameCanvas" width="800" height="250" aria-label="Área do jogo Dino Runner"></canvas>
     </div>
 
@@ -42,11 +45,10 @@
 
     <div class="instructions">
       <p>
-        Pressione <span class="key-badge">ESPAÇO</span> ou <span class="key-badge">↑</span> para pular • 
-        Pressione <span class="key-badge">↓</span> para agachar / descer rápido
+        Pressione <span class="key-badge">ESPAÇO</span>, <span class="key-badge">↑</span> ou <span class="key-badge">CLIQUE NA TELA</span> para começar e pular
       </p>
-      <p style="margin-top: 6px; font-size: 8px; opacity: 0.75;">
-        Em telas sensíveis ao toque, toque na tela ou use os botões abaixo para jogar.
+      <p style="margin-top: 8px;">
+        Pressione <span class="key-badge">↓</span> ou <span class="key-badge">S</span> para agachar / esquivar dos pterodáctilos
       </p>
     </div>
 
@@ -55,6 +57,6 @@
     </a>
   </div>
 
-  <script src="game.js"></script>
+  <script src="game.js?v=3"></script>
 </body>
 </html>

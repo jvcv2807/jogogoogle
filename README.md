@@ -4,10 +4,23 @@
 
 ---
 
-## 🎮 Jogar Online
+## 🎮 JOGAR ONLINE AGORA
 
-Acesse diretamente no seu navegador:  
+Clique no link abaixo para jogar diretamente no navegador:  
 👉 **[https://jvcv2807.github.io/jogogoogle/](https://jvcv2807.github.io/jogogoogle/)**
+
+*(Dica: Se a página abrir em branco ou com versão antiga no seu navegador, pressione `Ctrl + Shift + R` ou `Ctrl + F5` para limpar o cache).*
+
+---
+
+## 🕹️ Como Jogar
+
+- **No Computador:**
+  - `Espaço`, `Seta para Cima` ou `W`: Pula / Inicia a partida.
+  - `Seta para Baixo` ou `S`: Agacha (para esquivar dos pterodáctilos alados) / Descida rápida no ar.
+  - `Clique com o Mouse na tela`: Pula / Inicia a partida.
+- **No Celular / Tablet:**
+  - Toque em qualquer lugar da tela ou nos botões táteis **"Pular"** e **"Abaixar"**.
 
 ---
 
@@ -17,9 +30,6 @@ Acesse diretamente no seu navegador:
 - **Física Fluida:** Pulo com gravidade realista, aceleração progressiva de velocidade e mecânica de agachar / descida rápida com tecla para baixo.
 - **Ciclo Dia / Noite:** Transição suave para o modo escuro a cada 700 pontos com aparição de estrelas e lua crescente.
 - **Efeitos Sonoros Retrô:** Áudio sintetizado via **Web Audio API** (sons de pulo, milestone de 100 pontos e colisão/game over) sem arquivos pesados.
-- **Controle Total:**
-  - **Teclado:** `Espaço` ou `Seta para Cima` para pular; `Seta para Baixo` para agachar.
-  - **Mobile / Touch:** Toque na tela ou botões táteis dedicados.
 - **Recorde Persistente (HI Score):** Maior pontuação salva automaticamente no `localStorage`.
 
 ---
@@ -34,8 +44,9 @@ Acesse diretamente no seu navegador:
 
 ## 🚀 Como Executar Localmente
 
+Basta abrir o arquivo `index.html` em qualquer navegador:
+
 ```bash
-git clone https://github.com/jvcv2807/jogogoogle.git
 cd jogogoogle
 xdg-open index.html # ou no Windows: start index.html
 ```

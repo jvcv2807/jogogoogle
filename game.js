@@ -643,32 +643,56 @@ requestAnimationFrame(gameLoop);
 
 // Tratamento de Teclado
 window.addEventListener('keydown', (e) => {
-  if (e.code === 'Space' || e.code === 'ArrowUp') {
+  const isJumpKey = e.code === 'Space' || e.key === ' ' || e.keyCode === 32 ||
+                    e.code === 'ArrowUp' || e.key === 'ArrowUp' || e.keyCode === 38 ||
+                    e.code === 'KeyW' || e.key === 'w' || e.key === 'W' ||
+                    e.code === 'Enter' || e.key === 'Enter';
+
+  const isDuckKey = e.code === 'ArrowDown' || e.key === 'ArrowDown' || e.keyCode === 40 ||
+                    e.code === 'KeyS' || e.key === 's' || e.key === 'S';
+
+  if (isJumpKey) {
     e.preventDefault();
     if (gameState === STATE.START || gameState === STATE.GAMEOVER) {
       restartGame();
     } else {
       dino.jump();
     }
-  } else if (e.code === 'ArrowDown') {
+  } else if (isDuckKey) {
     e.preventDefault();
     dino.duck(true);
   }
 });
 
 window.addEventListener('keyup', (e) => {
-  if (e.code === 'ArrowDown') {
+  const isDuckKey = e.code === 'ArrowDown' || e.key === 'ArrowDown' || e.keyCode === 40 ||
+                    e.code === 'KeyS' || e.key === 's' || e.key === 'S';
+  if (isDuckKey) {
     dino.duck(false);
   }
 });
 
-// Toque na Tela / Mouse
-canvas.addEventListener('pointerdown', (e) => {
-  e.preventDefault();
+// Toque na Tela / Mouse em qualquer lugar da área de jogo
+function handleUserAction(e) {
+  if (e && e.target && e.target.closest('#soundBtn, #themeBtn, .back-link, #mobileDuckBtn')) {
+    return; // Não inicia se clicou nos botões de controle ou no link
+  }
   if (gameState === STATE.START || gameState === STATE.GAMEOVER) {
     restartGame();
   } else {
     dino.jump();
+  }
+}
+
+canvas.addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  handleUserAction(e);
+});
+
+document.querySelector('.canvas-wrapper')?.addEventListener('pointerdown', (e) => {
+  if (e.target !== canvas) {
+    e.preventDefault();
+    handleUserAction(e);
   }
 });
 
