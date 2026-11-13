@@ -1,21 +1,60 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dungeon Breakers: A Torre dos 100 Abismos</title>
-    <meta name="description" content="RPG de fantasia sombria, evolução, combate automático e destruição de monstros estilo TapTap Breaking com 100 andares, 1.000 chefões e 20 heróis colecionáveis." />
-    <meta property="og:title" content="Dungeon Breakers: A Torre dos 100 Abismos" />
-    <meta property="og:description" content="RPG de fantasia sombria, evolução, combate automático e destruição de monstros estilo TapTap Breaking com 100 andares, 1.000 chefões e 20 heróis colecionáveis." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=MedievalSharp&family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Google Dino Runner — Jogo do Dinossauro Recriado</title>
+  <meta name="description" content="Recriação fiel e completa do clássico jogo do dinossauro do Google Chrome (T-Rex Runner) em HTML5 Canvas e JavaScript puro. Jogue online!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23535353'/><text x='50%' y='68%' font-size='55' text-anchor='middle' fill='%23ffffff'>🦖</text></svg>">
+</head>
+<body>
 
+  <div class="game-container">
+    <header class="game-header">
+      <div class="game-title">
+        <span aria-hidden="true">🦖</span>
+        <strong>DINO RUNNER</strong>
+      </div>
+      <div class="header-controls">
+        <button id="soundBtn" class="icon-btn" aria-label="Alternar som" title="Ligar/Desligar Efeitos Sonoros">🔊</button>
+        <button id="themeBtn" class="icon-btn" aria-label="Alternar modo noturno" title="Alternar Dia/Noite">🌙</button>
+      </div>
+    </header>
+
+    <div class="canvas-wrapper">
+      <canvas id="gameCanvas" width="800" height="250" aria-label="Área do jogo Dino Runner"></canvas>
+    </div>
+
+    <!-- Controles para dispositivos móveis / touch -->
+    <div class="mobile-controls">
+      <button id="mobileJumpBtn" class="mobile-btn" type="button">
+        <span>⬆</span> PULAR / INICIAR
+      </button>
+      <button id="mobileDuckBtn" class="mobile-btn" type="button">
+        <span>⬇</span> ABAIXAR
+      </button>
+    </div>
+
+    <div class="instructions">
+      <p>
+        Pressione <span class="key-badge">ESPAÇO</span> ou <span class="key-badge">↑</span> para pular • 
+        Pressione <span class="key-badge">↓</span> para agachar / descer rápido
+      </p>
+      <p style="margin-top: 6px; font-size: 8px; opacity: 0.75;">
+        Em telas sensíveis ao toque, toque na tela ou use os botões abaixo para jogar.
+      </p>
+    </div>
+
+    <a href="https://github.com/jvcv2807/nexoweb" class="back-link" target="_blank" rel="noopener noreferrer">
+      ← Desenvolvido por João Vitor (jvcv2807) • Portfólio NexoWeb
+    </a>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
